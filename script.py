@@ -92,7 +92,7 @@ def process_csv(input_file: str, output_file: str, tokens_per_minute: int = 20) 
 
             # Set up CSV reader and writer
             csv_reader = csv.DictReader(infile)
-            fieldnames = ['Number', 'Email Text', 'Email Type', 'Phishing', 'Reasoning', 'Confidence']
+            fieldnames = ['Number', 'Email Text', 'Email Type', 'Phishing', 'Ground Truth', 'Reasoning', 'Confidence']
             csv_writer = csv.DictWriter(outfile, fieldnames=fieldnames, quoting=csv.QUOTE_MINIMAL)
             csv_writer.writeheader()
 
@@ -103,6 +103,10 @@ def process_csv(input_file: str, output_file: str, tokens_per_minute: int = 20) 
             # Process each row
             for row_number, row in enumerate(csv_reader, 1):
                 email_content = row['Email Text'].strip()[:500]  # Limit to 500 chars to avoid token issues
+                # Determine Ground Truth based on Email Type
+                ground_truth = "no" if row['Email Type'] == "Safe Email" else "yes" if row[
+                                                                                           'Email Type'] == "Phishing Email" else ""
+
                 if not email_content:
                     print(f"Skipping empty Email Text in row {row_number}")
                     csv_writer.writerow({
@@ -110,6 +114,7 @@ def process_csv(input_file: str, output_file: str, tokens_per_minute: int = 20) 
                         'Email Text': email_content,
                         'Email Type': row['Email Type'],
                         'Phishing': '',
+                        'Ground Truth': ground_truth,
                         'Reasoning': 'Error: Empty prompt',
                         'Confidence': ''
                     })
@@ -137,6 +142,7 @@ def process_csv(input_file: str, output_file: str, tokens_per_minute: int = 20) 
                         'Email Text': email_content,
                         'Email Type': row['Email Type'],
                         'Phishing': response['phishing'],
+                        'Ground Truth': ground_truth,
                         'Reasoning': response['reasoning'],
                         'Confidence': response['confidence']
                     })
@@ -148,6 +154,7 @@ def process_csv(input_file: str, output_file: str, tokens_per_minute: int = 20) 
                         'Email Text': email_content,
                         'Email Type': row['Email Type'],
                         'Phishing': '',
+                        'Ground Truth': ground_truth,
                         'Reasoning': f'Error: Invalid or no response from xAI Grok API. Response: {raw_response}',
                         'Confidence': ''
                     })
