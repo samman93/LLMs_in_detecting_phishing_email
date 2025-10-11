@@ -1,0 +1,2 @@
+file,llm,dataset,n_total,n_used,n_missing_pred,tp,tn,fp,fn,accuracy,specificity,recall,f1
+llm_email_phishing_results_dataset2_gemini.csv,gemini,dataset2,2000,1998,2,931,752,247,68,0.8423423423423423,0.7527527527527528,0.9319319319319319,0.8553054662379421

@@ -1,0 +1,2 @@
+file,llm,dataset,n_total,n_used,n_missing_pred,tp,tn,fp,fn,accuracy,specificity,recall,f1
+llm_email_phishing_results_dataset3_openai.csv,openai,dataset3,1722,1706,16,979,723,4,0,0.9976553341148886,0.9944979367262724,1.0,0.9979612640163099

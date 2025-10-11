@@ -1,0 +1,2 @@
+file,llm,dataset,n_total,n_used,n_missing_pred,tp,tn,fp,fn,accuracy,specificity,recall,f1
+llm_email_phishing_results_dataset3_grok.csv,grok,dataset3,2329,1654,675,718,936,0,0,1.0,1.0,1.0,1.0
