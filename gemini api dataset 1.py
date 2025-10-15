@@ -91,15 +91,6 @@ def call_llm(prompt: str, retries: int = 3, initial_retry_delay: int = 5) -> Opt
 
 
 def process_csv(input_file: str, output_file: str, tokens_per_minute: int = 20) -> None:
-    """
-    Reads CSV with Email Text, Email Type, where Email Text may contain newlines,
-    queries Gemini API with a phishing detection prompt, and writes results to a new CSV.
-
-    Args:
-        input_file: Path to input CSV file
-        output_file: Path to output CSV file
-        tokens_per_minute: Token-based rate limit for LLM API calls
-    """
     # Calculate delay between requests based on token rate limit
     delay = 60.0 / tokens_per_minute
 
