@@ -19,11 +19,6 @@ def call_llm(prompt: str, retries: int = 3, initial_retry_delay: int = 5) -> Opt
     """
 
     def parse_three_line_answer(text: str) -> Optional[Dict[str, any]]:
-        """ Parse formats like:
-        Phishing: yes
-        Reasoning: explains why...
-        Confidence: 87
-        """
         if not text:
             return None
         # Strip code fences if any
